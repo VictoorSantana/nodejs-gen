@@ -3,6 +3,52 @@
    "versao": "1.0",
    "modelagem": [
       {
+         "nome": "User",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "email",
+               "tipo": "varchar",
+               "tamanho": "30",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]   
+            },
+            {
+               "nome": "name",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]   
+            },
+            {
+               "nome": "password",
+               "tipo": "varchar",
+               "tamanho": "20",
+               "obrigatorio": "sim"
+            }            
+         ]
+      },
+      {
+         "nome": "Access",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "id_user",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]   
+            },
+            {
+               "nome": "endpoint",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]   
+            }         
+         ]
+      },
+      {
          "nome": "Ingredient",
          "render": "sim",
          "estrutura": [
