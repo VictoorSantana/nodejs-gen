@@ -1,0 +1,81 @@
+{
+   "pasta_projeto": "C:/Projetos/foodcraft/server",
+   "versao": "1.0",
+   "modelagem": [
+      {
+         "nome": "Ingredient",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "id_recipe",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "id_item",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "id_unit",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "amount",
+               "tipo": "integer",
+               "tamanho": "2",
+               "obrigatorio": "sim"
+            }
+         ]
+      },
+      {
+         "nome": "Item",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "name",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]          
+            }
+         ]
+      },
+      {
+         "nome": "Recipe",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "title",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]
+            },
+            {
+               "nome": "description",
+               "tipo": "varchar",
+               "tamanho": "400",
+               "obrigatorio": "nao"
+            }
+         ]
+      },
+      {
+         "nome": "Unit",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "name",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim",
+               "props": ["filtravel"]
+            }
+         ]
+      }
+   ]
+}

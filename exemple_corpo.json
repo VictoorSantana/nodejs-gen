@@ -1,0 +1,67 @@
+{
+   "pasta_projeto": "C:/Projetos/foodcraft/server",
+   "modelagem": [
+      {
+         "nome": "Ingredient",
+         "estrutura": [
+            {
+               "nome": "id_recipe",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "id_item",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "id_unit",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            }
+         ]
+      },
+      {
+         "nome": "Item",
+         "estrutura": [
+            {
+               "nome": "name",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim"
+            }
+         ]
+      },
+      {
+         "nome": "Recipe",
+         "estrutura": [
+            {
+               "nome": "title",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "description",
+               "tipo": "varchar",
+               "tamanho": "400",
+               "obrigatorio": "nao"
+            }
+         ]
+      },
+      {
+         "nome": "Unit",
+         "estrutura": [
+            {
+               "nome": "name",
+               "tipo": "varchar",
+               "tamanho": "45",
+               "obrigatorio": "sim"
+            }
+         ]
+      }
+   ]
+}
