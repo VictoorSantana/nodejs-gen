@@ -33,7 +33,7 @@ module.exports = {
                 if(estrutura[i].props) {
                     if(estrutura[i].props[0] === "filtravel") {
                         const nomeFuncao = item.nome.charAt(0).toUpperCase() + item.nome.slice(1);                        
-                        stream.write(`\tapp.get('/api/${nome}/findby/${item.nome}/:${item.nome}', verify('find by ${item.nome}'), controller.findBy${nomeFuncao});\n`);
+                        stream.write(`\tapp.get('/api/${nome}/findby/${item.nome}/:${item.nome}', verify('find by ${nome} ${item.nome}'), controller.findBy${nomeFuncao});\n`);
                     }
                 }                
             }
