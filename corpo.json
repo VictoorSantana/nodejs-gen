@@ -1,125 +1,146 @@
 {
-   "pasta_projeto": "C:/Projetos/foodcraft/server",
+   "pasta_projeto": "C:/Users/WMD-DEV01/Documents/fixing/reactjs-ecommerce-server",
+   "front": "C:/Users/WMD-DEV01/Documents/fixing/front",
    "versao": "1.0",
    "modelagem": [
       {
          "nome": "User",
+         "label": "Usuário",
          "render": "sim",
          "estrutura": [
             {
                "nome": "email",
+               "label": "E-mail",
                "tipo": "varchar",
                "tamanho": "30",
                "obrigatorio": "sim",
-               "props": ["filtravel"]   
+               "props": [
+                  "filtravel"
+               ]
             },
             {
                "nome": "name",
+               "label": "Nome",
                "tipo": "varchar",
                "tamanho": "40",
                "obrigatorio": "sim",
-               "props": ["filtravel"]   
+               "props": [
+                  "filtravel"
+               ]
             },
             {
                "nome": "password",
+               "label": "Senha",
                "tipo": "varchar",
+               "subtipo": "password",
                "tamanho": "20",
                "obrigatorio": "sim"
-            }            
-         ]
-      },
-      {
-         "nome": "Access",
-         "render": "sim",
-         "estrutura": [
-            {
-               "nome": "id_user",
-               "tipo": "integer",
-               "tamanho": "4",
-               "obrigatorio": "sim",
-               "props": ["filtravel"]   
             },
             {
-               "nome": "endpoint",
-               "tipo": "varchar",
-               "tamanho": "40",
-               "obrigatorio": "sim",
-               "props": ["filtravel"]   
-            }         
-         ]
-      },
-      {
-         "nome": "Ingredient",
-         "render": "sim",
-         "estrutura": [
-            {
-               "nome": "id_recipe",
+               "nome": "id_status",
+               "label": "Ativo",
                "tipo": "integer",
-               "tamanho": "4",
-               "obrigatorio": "sim"
-            },
-            {
-               "nome": "id_item",
-               "tipo": "integer",
-               "tamanho": "4",
-               "obrigatorio": "sim"
-            },
-            {
-               "nome": "id_unit",
-               "tipo": "integer",
-               "tamanho": "4",
-               "obrigatorio": "sim"
-            },
-            {
-               "nome": "amount",
-               "tipo": "integer",
-               "tamanho": "2",
-               "obrigatorio": "sim"
-            }
-         ]
-      },
-      {
-         "nome": "Item",
-         "render": "sim",
-         "estrutura": [
-            {
-               "nome": "name",
-               "tipo": "varchar",
-               "tamanho": "45",
-               "obrigatorio": "sim",
-               "props": ["filtravel"]          
-            }
-         ]
-      },
-      {
-         "nome": "Recipe",
-         "render": "sim",
-         "estrutura": [
-            {
-               "nome": "title",
-               "tipo": "varchar",
-               "tamanho": "45",
-               "obrigatorio": "sim",
-               "props": ["filtravel"]
-            },
-            {
-               "nome": "description",
-               "tipo": "varchar",
-               "tamanho": "400",
+               "subtipo": "boolean",
+               "tamanho": "1",
                "obrigatorio": "nao"
             }
          ]
       },
       {
-         "nome": "Unit",
+         "nome": "Access",
+         "label": "Acesso",
          "render": "sim",
          "estrutura": [
             {
-               "nome": "name",
-               "tipo": "varchar",
-               "tamanho": "45",
+               "nome": "id_user",
+               "label": "Usuário",
+               "join": ["11", "User", "name"], 
+               "tipo": "integer",
+               "tamanho": "4",
                "obrigatorio": "sim",
-               "props": ["filtravel"]
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "endpoint",
+               "label": "Parâmetro",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            }
+         ]
+      },
+      {
+         "nome": "Product",
+         "label": "Produto",
+         "render": "sim",
+         "estrutura": [
+            {
+               "nome": "title",
+               "label": "Título",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "description",
+               "label": "Descrição",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "price",
+               "label": "Preço",
+               "tipo": "decimal",
+               "subtipo": "money",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "amount",
+               "label": "Quantidade",
+               "tipo": "integer",
+               "subtipo": "amount",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "post_at",
+               "label": "Publicar em",
+               "tipo": "datetime",
+               "subtipo": "date",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "id_file",
+               "label": "Anexo de capa",
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
             }
          ]
       }

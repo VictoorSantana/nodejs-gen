@@ -2,7 +2,8 @@ fs = require('fs');
 
 module.exports = {
 
-    gerar: function (caminho, nome, estrutura) {
+    gerar: function (caminho, nome, estrutura, timestamps = "nao") {
+
         if (!fs.existsSync(caminho + '/database/models/')) {
             fs.mkdirSync(caminho + '/database/models/', { recursive: true });
         }
@@ -32,6 +33,10 @@ module.exports = {
                 if (item.tipo === "integer") {
                     stream.write(`\t\t type: Sequelize.INTEGER(${item.tamanho}), \n`);
                 }
+                if (item.tipo === "datetime") {
+                    stream.write(`\t\t type: Sequelize.DATE(6), \n`);
+                }
+
                 if (item.obrigatorio === "sim") {
                     stream.write(`\t allowNull: false \n`);
                 }
@@ -39,7 +44,12 @@ module.exports = {
                 stream.write(`\t}, \n`);
             }
 
-            stream.write("}, { timestamps: false }); \n");
+            if (timestamps === "sim") {
+                stream.write("}, { timestamps: true }); \n");
+            } else {
+                stream.write("}, { timestamps: false }); \n");
+            }
+            
             stream.write("module.exports = model; \n");
             stream.end();
         });
