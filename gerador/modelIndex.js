@@ -21,9 +21,12 @@ module.exports = {
                     //console.log(item.nome);
                     if(item.join) {
                         if(item.join[0] === '11') {
-                            stream.write(`${modelagem[i].nome}Model.belongsTo(${item.join[1]}Model, { as: '${item.join[1]}', foreignKey: '${item.nome}', allowNull: true });\n`);
+                            stream.write(`${modelagem[i].nome}Model.belongsTo(${item.join[1]}Model, { as: '${item.join[1]}', foreignKey: '${item.join[3] ? item.join[3] : item.nome}' });\n`);
                             //stream.write(`\n`);
-                        }   
+                        }
+                         else if(item.join[0] === '1N') {
+                            stream.write(`${modelagem[i].nome}Model.hasMany(${item.join[1]}Model, { as: '${item.join[1]}', foreignKey: '${item.join[3] ? item.join[3] : item.nome}' });\n`);
+                        }
                     }
                 }
             }

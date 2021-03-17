@@ -31,24 +31,24 @@ module.exports = {
                     tipo = ".string()";
                     size = `.max(${item.tamanho})`
                     tipoJs = "string";
-                }
-                if (item.tipo === "decimal") {
+                }else if (item.tipo === "decimal") {
                     tipo = ".number()";
                     size = `.max(${tamanho})`;
                     tipoJs = "number";
-                }
-                if (item.tipo === "integer") {
+                }else if (item.tipo === "integer") {
                     tipo = ".number().integer()";
                     size = `.max(${tamanho})`;
                     tipoJs = "number";
-                }
-                if (item.tipo === "datetime") {
+                }else if (item.tipo === "datetime") {
                     tipo = ".date()";
                     tipoJs = "date";
-                }                
+                }else if (item.tipo === "file") {
+                    tipo = ".string()";
+                    tipoJs = "string";
+                }
 
 
-                if (item.obrigatorio === "sim") {
+                if (item.obrigatorio === "sim" && item.tipo != "file") {
                     obg = ".required()";
                 }
 
@@ -64,7 +64,10 @@ module.exports = {
                 }                
                 if (item.tipo === "datetime") {
                     msg += `'${tipoJs}.base': 'campo "${item.nome}" deve ser do tipo "data valida".',\n`;
-                }                
+                } 
+                if (item.tipo === "file") {
+                    msg += `'${tipoJs}.base': 'campo "${item.nome}" deve ser do tipo "arquivo".',\n`;
+                }                 
 
                 msg +=  `'${tipoJs}.empty': 'campo "${item.nome}" não pode ser vazio.',
                     '${tipoJs}.min': 'campo "${item.nome}" deve ter o tamanho minimo de {#limit}',

@@ -29,6 +29,15 @@
                ]
             },
             {
+               "nome": "id_file",
+               "label": "Foto de perfil",               
+               "tipo": "integer",
+               "subtipo": "attach",
+               "join": ["11", "File", "title"], 
+               "tamanho": "4",
+               "obrigatorio": "nao"
+            },
+            {
                "nome": "password",
                "label": "Senha",
                "tipo": "varchar",
@@ -75,9 +84,10 @@
          ]
       },
       {
-         "nome": "Product",
-         "label": "Produto",
+         "nome": "Folder",
+         "label": "Pasta",
          "render": "sim",
+         "timestamp": "sim",
          "estrutura": [
             {
                "nome": "title",
@@ -93,6 +103,137 @@
                "nome": "description",
                "label": "Descrição",
                "tipo": "varchar",
+               "tamanho": "100",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "id_folder",
+               "label": "Pasta",
+               "join": ["1N", "Folder", "title"], 
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            }
+         ]
+      },
+      {
+         "nome": "File",
+         "label": "Arquivos",
+         "render": "sim",
+         "timestamp": "sim",
+         "estrutura": [
+            {
+               "nome": "title",
+               "label": "Título",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "credit",
+               "label": "Crédito/Autor",
+               "tipo": "varchar",
+               "tamanho": "100",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "hash",
+               "label": "Código Hash",
+               "tipo": "varchar",
+               "tamanho": "15",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "type",
+               "label": "Tipo",
+               "tipo": "varchar",
+               "tamanho": "4",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "filetarget",
+               "label": "Upload",
+               "tipo": "file",
+               "subtipo": "image/*",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "id_folder",
+               "label": "Pasta",
+               "join": ["11", "Folder", "title", "id_folder"], 
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            }
+
+            
+         ]
+      },
+      {
+         "nome": "Productfile",
+         "label": "Anexos de Produto",
+         "tipo": ["intersection"],
+         "render": "sim",
+         "estrutura": [            
+            {
+               "nome": "id_product",
+               "label": "Pasta",
+               "join": ["11", "Product", "title"], 
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "id_file",
+               "label": "Arquivo",
+               "join": ["11", "File", "title"], 
+               "tipo": "integer",
+               "subtipo": "attach",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            }
+         ]
+      },
+      {
+         "nome": "Product",
+         "label": "Produto",
+         "render": "sim",
+         "joined": [["1N","Productfile", "id_product", "id", "id_file"]],
+         "estrutura": [
+            {
+               "nome": "title",
+               "label": "Título",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "description",
+               "label": "Descrição",
+               "tipo": "varchar",
+               "subtipo": "essay",
                "tamanho": "40",
                "obrigatorio": "sim",
                "props": [
@@ -134,8 +275,10 @@
             },
             {
                "nome": "id_file",
-               "label": "Anexo de capa",
+               "label": "Foto de capa",
+               "join": ["11", "File", "title", "id"], 
                "tipo": "integer",
+               "subtipo": "attach",
                "tamanho": "4",
                "obrigatorio": "sim",
                "props": [

@@ -29,11 +29,17 @@ module.exports = {
             for (var i = 0; i < modelagem.length; i++) {
                 const item = modelagem[i];
 
-                stream.write(`\n{`);
-                stream.write(`\npath: '/${item.nome.toLowerCase()}-roll',`);
-                stream.write(`\ntitle: '${item.label ? item.label : item.nome}',`);
-                stream.write(`\nparam: ''`);
-                stream.write(`\n},`);
+                if (item.tipo) {
+                    if(item.tipo[0] == 'intersection') {
+
+                    }
+                } else {
+                    stream.write(`\n{`);
+                    stream.write(`\npath: '/${item.nome.toLowerCase()}-roll',`);
+                    stream.write(`\ntitle: '${item.label ? item.label : item.nome}',`);
+                    stream.write(`\nparam: ''`);
+                    stream.write(`\n},`);
+                }
             }
 
             stream.write(`\n]`);

@@ -2,8 +2,9 @@ fs = require('fs');
 
 module.exports = {
 
-    gerar: function (caminho, nome, estrutura) {        
+    gerar: function (caminho, nome, modelagem) {        
 
+        let estrutura = modelagem.estrutura;
 
         if (!fs.existsSync(caminho + `/src/routes/${nome}/`)) {
             fs.mkdirSync(caminho + `/src/routes/${nome}/`, { recursive: true });
@@ -140,7 +141,7 @@ module.exports = {
             stream.write(`\n\t\treturn (`);
             stream.write(`\n\t\t\t<NavComponent`);
             stream.write(`\n\t\t\t\tonLoad={onLoad}`);
-            stream.write(`\n\t\t\t\trouteName="${nameCap}"`);
+            stream.write(`\n\t\t\t\trouteName="Listagem ${modelagem.label ? modelagem.label : nameCap}"`);
             stream.write(`\n\t\t\t\terror={this.state.error} errorClose={(error) => this.setState({ error })}>`);
             stream.write(`\n\t\t\t\t<PanelComponent name="Tabela">`);
             stream.write(`\n`);
@@ -168,7 +169,7 @@ module.exports = {
                 if(item.props) {
                     if(item.props[0] == "filtravel") {
                         arraySet.push(item.nome);
-                        arraySetLabel.push(item.label ? item.label : item.nome)
+                        arraySetLabel.push(item.label ? item.label.toLowerCase() : item.nome.toLowerCase())
                     }                
                 }                
             }

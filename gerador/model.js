@@ -22,26 +22,28 @@ module.exports = {
                 const item = estrutura[i];
                 let obg = "";
 
-                stream.write(`\t ${item.nome}: { \n`);
+                if (item.tipo != "file") {
+                    stream.write(`\t ${item.nome}: { \n`);
 
-                if (item.tipo === "varchar") {
-                    stream.write(`\t\t type: Sequelize.STRING(${item.tamanho}), \n`);
-                }
-                if (item.tipo === "decimal") {
-                    stream.write(`\t\t type: Sequelize.DECIMAL(${item.tamanho}), \n`);
-                }
-                if (item.tipo === "integer") {
-                    stream.write(`\t\t type: Sequelize.INTEGER(${item.tamanho}), \n`);
-                }
-                if (item.tipo === "datetime") {
-                    stream.write(`\t\t type: Sequelize.DATE(6), \n`);
-                }
+                    if (item.tipo === "varchar") {
+                        stream.write(`\t\t type: Sequelize.STRING(${item.tamanho}), \n`);
+                    }
+                    if (item.tipo === "decimal") {
+                        stream.write(`\t\t type: Sequelize.DECIMAL(${item.tamanho}), \n`);
+                    }
+                    if (item.tipo === "integer") {
+                        stream.write(`\t\t type: Sequelize.INTEGER(${item.tamanho}), \n`);
+                    }
+                    if (item.tipo === "datetime") {
+                        stream.write(`\t\t type: Sequelize.DATE(6), \n`);
+                    }
 
-                if (item.obrigatorio === "sim") {
-                    stream.write(`\t allowNull: false \n`);
-                }
+                    if (item.obrigatorio === "sim") {
+                        stream.write(`\t allowNull: false \n`);
+                    }
 
-                stream.write(`\t}, \n`);
+                    stream.write(`\t}, \n`);
+                }
             }
 
             if (timestamps === "sim") {
@@ -49,7 +51,7 @@ module.exports = {
             } else {
                 stream.write("}, { timestamps: false }); \n");
             }
-            
+
             stream.write("module.exports = model; \n");
             stream.end();
         });
