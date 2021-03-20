@@ -27,6 +27,10 @@ fs.readFile('./corpo.json', 'utf8', function (err, data) {
 
 
     for (var i = 0; i < _r.modelagem.length; i++) {
+
+        /* Cuidado com referencia  */
+        /* Está passando como referencia  */
+        
         const name_project = _r.modelagem[i].nome.toLowerCase();
 
         if (_r.modelagem[i].render === "sim") {

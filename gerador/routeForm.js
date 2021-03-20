@@ -37,6 +37,11 @@ module.exports = {
             stream.write(`\nimport DatePickComponent from '../../components/datePickComponent/datePickComponent';`);
             stream.write(`\nimport ApiDropComponent from '../../components/apiDropComponent/apiDropComponent';`);
             stream.write(`\nimport GridViewComponent from '../../components/gridViewComponent/gridViewComponent';`);
+            stream.write(`\nimport AttachComponent from '../../components/attachComponent/attachComponent';`);
+            stream.write(`\nimport ComboComponent from '../../components/comboComponent/comboComponent';`);
+
+
+
 
             if (modelagem.joined) {
                 let joined = modelagem.joined;
@@ -323,29 +328,75 @@ module.exports = {
                 stream.write(`\n\t\t\t\t\t\t\t\t<label htmlFor="${item.nome}"> ${item.label ? item.label : item.nome} </label>`);
 
                 if (item.join) {
-                    stream.write(`\n\t\t\t\t\t\t\t\t<ApiDropComponent`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tprop={['id', '${item.join[2]}']}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tservice={'${item.join[1]}'}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\t></ApiDropComponent>`);
+
+                    if (item.subtipo === "attach") {
+                        stream.write(`\n\t\t\t\t\t\t\t\t<AttachComponent`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.id_fileField}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ id_fileField: value })}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tseverity="danger"`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tcancel={() => null}></AttachComponent>`);
+                    } else {
+                        stream.write(`\n\t\t\t\t\t\t\t\t<ApiDropComponent`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tprop={['id', '${item.join[2]}']}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tservice={'${item.join[1]}'}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\t></ApiDropComponent>`);
+                    }
                 } else {
                     if (item.tipo === "decimal") {
-                        stream.write(`\n\t\t\t\t\t\t\t\t<input`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={(event) => this.setState({ ${item.nome}Field: _f.decimal(event) })}`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${Number(item.tamanho) + 3}"`); //virgula e 2 zero após a virgula
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                        if (item.subtipo === "money") {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group mb-3">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={(event) => this.setState({ ${item.nome}Field: _f.decimal(event) })}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${Number(item.tamanho) + 3}"`); //virgula e 2 zero após a virgula
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group-append">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<span className="input-group-text"><i className="fas fa-dollar-sign"></i></span>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                        } else {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={(event) => this.setState({ ${item.nome}Field: _f.decimal(event) })}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${Number(item.tamanho) + 3}"`); //virgula e 2 zero após a virgula
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                        }
                     } else if (item.tipo === "integer") {
-                        stream.write(`\n\t\t\t\t\t\t\t\t<input`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={(event) => this.setState({ ${item.nome}Field: _f.integer(event) })}`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${item.tamanho}"`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
-                        stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                        if (item.subtipo === "amount") {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group mb-3">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input maxLength="${item.tamanho}" value={this.state.${item.nome}Field} onChange={(event) => this.setState({ ${item.nome}Field: _f.integer(event) })} name="${item.nome}" type="text" className="form-control" placeholder="****"></input>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group-append">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<span className="input-group-text"><i className="fas fa-boxes text-secondary"></i></span>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                        } else if (item.subtipo === "static") {
+                            let defaultItem = item.default;
+
+                            if (defaultItem.tipo == "dropdown") {
+                                stream.write(`\n\t\t\t\t\t\t\t\t<ComboComponent`);
+                                stream.write(`\n\t\t\t\t\t\t\t\tallowNull={${item.obrigatorio ? 'false' : 'true'}}`);
+                                stream.write(`\n\t\t\t\t\t\t\t\titems={${JSON.stringify(defaultItem.items)}}`);
+                                stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                                stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
+                                stream.write(`\n\t\t\t\t\t\t\t\t></ComboComponent>`);                                
+                            }
+
+                        } else {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={(event) => this.setState({ ${item.nome}Field: _f.integer(event) })}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${item.tamanho}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                        }
+
                     } else if (item.tipo === "datetime") {
                         //stream.write(`\n\t\t\t\t\t\t\t\t{`);
                         //stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={this.handleChange}`);
@@ -390,6 +441,23 @@ module.exports = {
                         stream.write(`\n\t\t\t\t\t\t\t\t}`);
 
 
+                    } else if (item.tipo === "varchar") {
+                        if (item.subtipo === "password") {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group mb-3">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input maxLength="${item.tamanho}" value={this.state.${item.nome}Field} onChange={this.handleChange} name="${item.nome}" type="password" className="form-control" placeholder="****"></input>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<div className="input-group-append">`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t<span className="input-group-text"><i className="fas fa-lock"></i></span>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t</div>`);
+                        } else {
+                            stream.write(`\n\t\t\t\t\t\t\t\t<input`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={this.handleChange}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tmaxLength="${item.tamanho}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\ttype="text"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tname="${item.nome}"`);
+                            stream.write(`\n\t\t\t\t\t\t\t\t\tclassName="form-control" />`);
+                        }
                     } else {
                         stream.write(`\n\t\t\t\t\t\t\t\t<input`);
                         stream.write(`\n\t\t\t\t\t\t\t\t\tonChange={this.handleChange}`);

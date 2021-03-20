@@ -50,6 +50,8 @@ module.exports = {
             stream.write(`\nimport GridViewComponent from '../../components/gridViewComponent/gridViewComponent';`);
             stream.write(`\nimport ApiDropComponent from '../../components/apiDropComponent/apiDropComponent';`);
             stream.write(`\nimport PaginationComponent from '../../components/paginationComponent/paginationComponent';`);
+            stream.write(`\nimport AttachComponent from '../../components/attachComponent/attachComponent';`);
+            
             stream.write(`\n`);
             stream.write(`\nclass ${joinedAlvo}Resource extends Component {`);
             stream.write(`\n`);
@@ -379,12 +381,20 @@ module.exports = {
                 stream.write(`\n\t\t\t\t\t\t\t\t<label htmlFor="${item.nome}"> ${item.label ? item.label : item.nome} </label>`);
 
                 if (item.join) {
-                    stream.write(`\n\t\t\t\t\t\t\t\t<ApiDropComponent`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tprop={['id', '${item.join[2]}']}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\tservice={'${item.join[1]}'}`);
-                    stream.write(`\n\t\t\t\t\t\t\t\t></ApiDropComponent>`);
+                    if (item.subtipo === "attach") {
+                        stream.write(`\n\t\t\t\t\t\t\t\t<AttachComponent`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.id_fileField}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ id_fileField: value })}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tseverity="danger"`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tcancel={() => null}></AttachComponent>`);
+                    } else {
+                        stream.write(`\n\t\t\t\t\t\t\t\t<ApiDropComponent`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tprop={['id', '${item.join[2]}']}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\tservice={'${item.join[1]}'}`);
+                        stream.write(`\n\t\t\t\t\t\t\t\t></ApiDropComponent>`);
+                    }
                 } else {
                     if (item.tipo === "decimal") {
                         stream.write(`\n\t\t\t\t\t\t\t\t<input`);

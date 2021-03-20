@@ -32,6 +32,7 @@ module.exports = {
             stream.write(`\n/* Routes */`);
             stream.write(`\nimport LoginRoute from './routes/login.route';`);
             stream.write(`\nimport DebugRoute from './routes/debug.route';`);
+            stream.write(`\nimport HomeRoute from './routes/home.route';`);
 
             //
             //<PrivateRoute path="/debug" component={(props) => <DebugRoute {...props}></DebugRoute>}></PrivateRoute>
@@ -68,11 +69,10 @@ module.exports = {
             stream.write(`\nconst Routes = () => (`);
             stream.write(`\n<BrowserRouter>`);
             stream.write(`\n\t<Switch>`);
-            stream.write(`\n\t  <Route exact path="/" component={(props) => <LoginRoute  {...props}></LoginRoute>}></Route>`);
+            stream.write(`\n\t  <Route  exact path="/"      component={(props) => <LoginRoute  {...props}></LoginRoute>}></Route>`);        
+            stream.write(`\n\t  <PrivateRoute path="/debug" component={(props) => <DebugRoute {...props}></DebugRoute>}></PrivateRoute>`);
+            stream.write(`\n\t  <PrivateRoute path="/home" component={(props) => <HomeRoute {...props}></HomeRoute>}></PrivateRoute>`);
             stream.write(`\n`);
-
-            stream.write(`\n\t <PrivateRoute path="/debug" component={(props) => <DebugRoute {...props}></DebugRoute>}></PrivateRoute>`);
-
             //
 
 

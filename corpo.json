@@ -47,9 +47,13 @@
             },
             {
                "nome": "id_status",
-               "label": "Ativo",
+               "label": "Status",
                "tipo": "integer",
-               "subtipo": "boolean",
+               "subtipo": "static",
+               "default": {
+                  "tipo": "dropdown",                  
+                  "items": [{"value": "2", "label": "Suspenso"}, {"value": "1", "label": "Ativo"}, {"value": "0", "label": "Inativo"}]
+               },
                "tamanho": "1",
                "obrigatorio": "nao"
             }
@@ -190,7 +194,7 @@
          "estrutura": [            
             {
                "nome": "id_product",
-               "label": "Pasta",
+               "label": "Produto",
                "join": ["11", "Product", "title"], 
                "tipo": "integer",
                "tamanho": "4",

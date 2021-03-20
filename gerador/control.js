@@ -24,7 +24,7 @@ module.exports = {
         stream.once('open', function (fd) {
             const nameCap = nome.charAt(0).toUpperCase() + nome.slice(1);
 
-            stream.write(`const { Op } = require('sequelize');\n`);
+            stream.write(`const { Op, Sequelize } = require('sequelize');\n`);
             stream.write(`const debug = require('../../utils/debug');\n`);
             stream.write(`const headerSet = require('../../utils/functions/headerSet');\n`);
 
@@ -46,23 +46,27 @@ module.exports = {
             })
 
             stream.write(`const { ${uniqueArray} } = require('../../database/models/models');\n`);
-            stream.write(`exports.findAll = function (req, res) {\n`);
-            // stream.write(`\tconst offset = isNaN(Number(req.headers.offset)) ? 0 : Number(req.headers.offset);\n`);
-            // stream.write(`\tconst limit = isNaN(Number(req.headers.limit)) ? 5 : Number(req.headers.limit);\n`);
-            // stream.write(`\tconst sorted = req.headers.sorted;\n`);
-            // stream.write(`\tconst attr = req.headers.attr;\n`);
-            // stream.write(`\tlet order = [];\n`);
-            // stream.write(`\tif(sorted && attr) { order.push([ attr, sorted ]); }\n`);
+            stream.write(`exports.findAll = function (req, res) {\n`);            
             stream.write(`\tlet { offset, limit, order } = headerSet.getItems(req.headers);\n`);
 
             stream.write(`\tlet exclude = [];\n`);
+            stream.write(`\tlet include = [];\n`);
+
             for (var i = 0; i < estrutura.length; i++) {
                 const item = estrutura[i];
-                if (estrutura[i].subtipo) {
-                    if (estrutura[i].subtipo === "password") {
+                if (item.subtipo) {
+                    if (item.subtipo === "password") {
                         stream.write(`\texclude.push('password');\n`);
+                    } else if(item.subtipo === "static") {
+                        stream.write(`\texclude.push('${item.nome}');\n`);                        
+                        let dfProp = item.default.items;
+                        let caseItem = "";
+                        for(var j = 0; j < dfProp.length; j++) {
+                            caseItem += ` WHEN ${item.nome} = ${dfProp[j].value} THEN "${dfProp[j].label}" `;
+                        }
+                        stream.write(`\tinclude.push([Sequelize.literal('CASE ${caseItem} END'), '${item.nome}']);`);
                     }
-                }
+                }                                            
             }
 
 
@@ -71,7 +75,7 @@ module.exports = {
             stream.write(`\t\t\toffset,\n`);
             stream.write(`\t\t\tlimit,\n`);
             stream.write(`\t\t\torder,\n`);
-            stream.write(`\t\t\tattributes: {exclude},\n`);
+            stream.write(`\t\t\tattributes: {exclude, include},\n`);
             stream.write(`\t\t\tinclude: [\n`);
             for (var i = 0; i < estrutura.length; i++) {
                 const item = estrutura[i];
