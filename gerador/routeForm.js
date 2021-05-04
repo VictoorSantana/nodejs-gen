@@ -67,7 +67,8 @@ module.exports = {
                 if (item.join) {
                     if (item.join[0] === '1N') {
                         stream.write(`\n\t\t\t${item.nome}Field: '',`);
-                        stream.write(`\n\t\t\t${item.join[1].toLowerCase()}Roll: [],`);
+                        let keyRoll = item.join[4] ? item.join[4] : item.join[1];
+                        stream.write(`\n\t\t\t${keyRoll.toLowerCase()}Roll: [],`);
                     } else {
                         stream.write(`\n\t\t\t${item.nome}Field: '',`);
                     }
@@ -116,7 +117,8 @@ module.exports = {
                 const item = estrutura[i];
                 if (item.join) {
                     if (item.join[0] === '1N') {
-                        stream.write(`\n\t\t\t${item.join[1].toLowerCase()}Roll:  response.data[0] ? response.data[0].${item.join[1]} : [],`);
+                        let keyRoll = item.join[4] ? item.join[4] : item.join[1];
+                        stream.write(`\n\t\t\t${keyRoll.toLowerCase()}Roll:  response.data[0] ? response.data[0].${keyRoll} : [],`);
                         stream.write(`\n\t\t\t\t\t\t${item.nome}Field: response.data[0].${item.nome},`);
                     } else {
                         stream.write(`\n\t\t\t\t\t\t${item.nome}Field: response.data[0].${item.nome},`);
@@ -337,6 +339,9 @@ module.exports = {
                         stream.write(`\n\t\t\t\t\t\t\t\tcancel={() => null}></AttachComponent>`);
                     } else {
                         stream.write(`\n\t\t\t\t\t\t\t\t<ApiDropComponent`);
+                        if(item.defaultValue) {
+                            stream.write(`\n\t\t\t\t\t\t\t\tdefault={${JSON.stringify(item.defaultValue)}}`);
+                        }
                         stream.write(`\n\t\t\t\t\t\t\t\tprop={['id', '${item.join[2]}']}`);
                         stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.${item.nome}Field}`);
                         stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ ${item.nome}Field: value })}`);
@@ -562,7 +567,7 @@ module.exports = {
                                 stream.write(`\n\t\t\t\tattr={${JSON.stringify(attr)}}`);
                                 stream.write(`\n\t\t\t\ttype={${JSON.stringify(type)}}`);
                                 stream.write(`\n\t\t\t\tjoin={${JSON.stringify(join)}}`);
-                                stream.write(`\n\t\t\t\tset={this.state.${estrModel.nome.toLowerCase()}Roll}`);
+                                stream.write(`\n\t\t\t\tset={this.state.${item.join[4] ? item.join[4].toLowerCase() : estrModel.nome.toLowerCase()}Roll}`);
                                 stream.write(`\n\t\t\t\t></GridViewComponent>`);
                                 stream.write(`\n\t\t\t\t</div>`);
                                 stream.write(`\n\t\t\t\t</div>`);

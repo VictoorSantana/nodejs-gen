@@ -36,11 +36,28 @@ module.exports = {
                     }
                     if (item.tipo === "datetime") {
                         stream.write(`\t\t type: Sequelize.DATE(6), \n`);
+                        stream.write(`\t\t defaultValue: Sequelize.NOW, \n`);
                     }
 
-                    if (item.obrigatorio === "sim") {
-                        stream.write(`\t allowNull: false \n`);
+                    if (item.defaultValue) {
+                        stream.write(`\t\t defaultValue: ${item.defaultValue[0]}, \n`);
                     }
+
+                    if (item.defaultValue) {
+                        stream.write(`\t\t defaultValue: ${item.defaultValue[0]}, \n`);
+                    }
+
+
+                    if(item.obrigatorio) {
+                        if(item.obrigatorio == "sim") {
+                            stream.write(`\t\t allowNull: false, \n`);
+                        } else {
+                            stream.write(`\t\t allowNull: true, \n`);
+                        }                    
+                    }
+
+                    
+
 
                     stream.write(`\t}, \n`);
                 }

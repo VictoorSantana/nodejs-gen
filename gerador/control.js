@@ -81,7 +81,7 @@ module.exports = {
                 const item = estrutura[i];
                 if (item.join) {
                     if (item.join[0] === '11' || item.join[0] === '1N') {
-                        stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[1]}' }, \n`);
+                        stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[4] ? item.join[4] : item.join[1]}' }, \n`);
                     }
                 }
             }
@@ -118,7 +118,7 @@ module.exports = {
                 const item = estrutura[i];
                 if (item.join) {
                     if (item.join[0] === '11' || item.join[0] === '1N') {
-                        stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[1]}' }, \n`);
+                        stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[4] ? item.join[4] : item.join[1]}' }, \n`);
                     }
                 }
             }
@@ -172,7 +172,7 @@ module.exports = {
                             const item = estrutura[j];
                             if (item.join) {
                                 if (item.join[0] === '11' || item.join[0] === '1N') {
-                                    stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[1]}' }, \n`);
+                                    stream.write(`\t\t\t{ model: ${item.join[1]}Model, as: '${item.join[4] ? item.join[4] : item.join[1]}' }, \n`);
                                 }
                             }
                         }
@@ -284,7 +284,7 @@ module.exports = {
                 stream.write(`\t\t\t\tres.status(500).json(e);\n`);
                 stream.write(`\t\t});\n`);
                 stream.write(`\t} else {\n`);
-                stream.write(`\t\t debug.save(e, '${nameCap} - create'); \n`);
+                //stream.write(`\t\t debug.save(e, '${nameCap} - create'); \n`);
                 stream.write(`\t\tres.status(500).json(error);\n`);
                 stream.write(`\t}\n`);
                 stream.write(`};\n`);

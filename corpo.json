@@ -1,6 +1,6 @@
 {
-   "pasta_projeto": "C:/Users/WMD-DEV01/Documents/fixing/reactjs-ecommerce-server",
-   "front": "C:/Users/WMD-DEV01/Documents/fixing/front",
+   "pasta_projeto": "/Users/trinixdesenvolvimento4/Documents/projetos/article/server",
+   "front": "/Users/trinixdesenvolvimento4/Documents/projetos/article/front",
    "versao": "1.0",
    "modelagem": [
       {
@@ -33,7 +33,7 @@
                "label": "Foto de perfil",               
                "tipo": "integer",
                "subtipo": "attach",
-               "join": ["11", "File", "title"], 
+               "join": ["11", "File", "title", "", "id_file_photo"], 
                "tamanho": "4",
                "obrigatorio": "nao"
             },
@@ -113,8 +113,9 @@
             {
                "nome": "id_folder",
                "label": "Pasta",
-               "join": ["1N", "Folder", "title"], 
+               "join": ["1N", "Folder", "title", "", "folder_parent"], 
                "tipo": "integer",
+               "defaultValue": ["0", "Pasta raiz"],
                "tamanho": "4",
                "obrigatorio": "sim",
                "props": [
@@ -289,6 +290,143 @@
                   "filtravel"
                ]
             }
+         ]
+      },
+      {
+         "nome": "Article",
+         "label": "Artigos",
+         "render": "sim",
+         "timestamp": "sim",
+         "estrutura": [
+            {
+               "nome": "title",
+               "label": "Título",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "short",
+               "label": "Chápeu",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "clickbait",
+               "label": "Complemento (bait)",
+               "tipo": "varchar",
+               "tamanho": "150",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "content",
+               "label": "Texto",
+               "tipo": "varchar",
+               "tamanho": "1000"
+            },
+            {
+               "nome": "publishment",
+               "label": "Publicar em",
+               "tipo": "datetime",
+               "subtipo": "date",
+               "tamanho": "4",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "show_it",
+               "label": "Mostrar",
+               "tipo": "integer",
+               "subtipo": "static",
+               "default": {
+                  "tipo": "dropdown",                  
+                  "items": [{"value": "1", "label": "Sim"}, {"value": "0", "label": "Não"}]
+               },
+               "tamanho": "1",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "section",
+               "label": "Seção",
+               "join": ["11", "Section", "title", "", "section_parent"], 
+               "tipo": "integer",
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            },
+            {
+               "nome": "id_file",
+               "label": "Foto",
+               "join": ["11", "File", "title", "id"], 
+               "tipo": "integer",
+               "subtipo": "attach",
+               "tamanho": "4"
+            }
+         ]
+      },
+      {
+         "nome": "Section",
+         "label": "Seção",
+         "render": "sim",
+         "timestamp": "sim",
+         "estrutura": [
+            {
+               "nome": "title",
+               "label": "Título",
+               "tipo": "varchar",
+               "tamanho": "40",
+               "obrigatorio": "sim",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "complement",
+               "label": "Descrição",
+               "tipo": "varchar",
+               "tamanho": "150",
+               "props": [
+                  "filtravel"
+               ]
+            },
+            {
+               "nome": "on_Nav",
+               "label": "Mostrar no menu",
+               "tipo": "integer",
+               "subtipo": "static",
+               "default": {
+                  "tipo": "dropdown",                  
+                  "items": [{"value": "1", "label": "Sim"}, {"value": "0", "label": "Não"}]
+               },
+               "tamanho": "1",
+               "obrigatorio": "nao"
+            },
+            {
+               "nome": "id_file",
+               "label": "Foto",
+               "join": ["11", "File", "title", "id"], 
+               "tipo": "integer",
+               "subtipo": "attach",
+               "tamanho": "4"
+            },
+            {
+               "nome": "section",
+               "label": "Seção",
+               "join": ["1N", "Section", "title", "", "section_parent"], 
+               "tipo": "integer",
+               "defaultValue": ["0", "Seção raiz"],
+               "tamanho": "4",
+               "obrigatorio": "sim"
+            }          
          ]
       }
    ]

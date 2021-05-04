@@ -383,6 +383,9 @@ module.exports = {
                 if (item.join) {
                     if (item.subtipo === "attach") {
                         stream.write(`\n\t\t\t\t\t\t\t\t<AttachComponent`);
+                        if(item.defaultValue) {
+                            stream.write(`\n\t\t\t\t\t\t\t\tdefault={${JSON.stringify(item.defaultValue)}}`);
+                        }
                         stream.write(`\n\t\t\t\t\t\t\t\tvalue={this.state.id_fileField}`);
                         stream.write(`\n\t\t\t\t\t\t\t\tmove={(value) => this.setState({ id_fileField: value })}`);
                         stream.write(`\n\t\t\t\t\t\t\t\tseverity="danger"`);
